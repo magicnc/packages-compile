@@ -65,11 +65,11 @@ jobs:
 
     - name: Trigger Packages Update
       run: |
-        gitdate="$(curl -H "Authorization: token ${{ env.REPO_TOKEN }}" -s "https://api.github.com/repos/kiddin9/openwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date')" || gitdate="$(curl -H "Authorization: token ${{ secrets.TOKEN_KIDDIN9 }}" -s "https://api.github.com/repos/kiddin9/openwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date')" || true
+        gitdate="$(curl -H "Authorization: token ${{ env.REPO_TOKEN }}" -s "https://api.github.com/repos/kiddin9/kwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date')" || gitdate="$(curl -H "Authorization: token ${{ secrets.TOKEN_KIDDIN9 }}" -s "https://api.github.com/repos/kiddin9/kwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date')" || true
         gitdate="$(date -d "$gitdate" +%s)" || true
         now="$(date -d "$(date)" +%s)"
         if [[ $(expr $gitdate + 120) < $now ]]; then
-        curl -X POST https://api.github.com/repos/kiddin9/openwrt-packages/dispatches \
+        curl -X POST https://api.github.com/repos/kiddin9/kwrt-packages/dispatches \
         -H "Accept: application/vnd.github.everest-preview+json" \
         -H "Authorization: token ${{ env.REPO_TOKEN }}" \
         --data '{"event_type": "update"}'
@@ -187,10 +187,10 @@ jobs:
           echo >> .config
           cat devices/${{matrix.target}}/.config >> .config
         fi
-        status=$(curl -H "Authorization: token ${{ env.REPO_TOKEN }}" -s "https://api.github.com/repos/kiddin9/openwrt-packages/actions/runs" | jq -r '.workflow_runs[0].status')
+        status=$(curl -H "Authorization: token ${{ env.REPO_TOKEN }}" -s "https://api.github.com/repos/kiddin9/kwrt-packages/actions/runs" | jq -r '.workflow_runs[0].status')
         while [ "$status" == "in_progress" ];do
           sleep 5
-          status=$(curl -H "Authorization: token ${{ env.REPO_TOKEN }}" -s "https://api.github.com/repos/kiddin9/openwrt-packages/actions/runs" | jq -r '.workflow_runs[0].status')
+          status=$(curl -H "Authorization: token ${{ env.REPO_TOKEN }}" -s "https://api.github.com/repos/kiddin9/kwrt-packages/actions/runs" | jq -r '.workflow_runs[0].status')
         done
         make defconfig
 
@@ -235,7 +235,7 @@ jobs:
               comp
             else
               REPO_TOKEN="${{ env.REPO_TOKEN }}"
-              gitdate=$(curl -H "Authorization: token $REPO_TOKEN" -s "https://api.github.com/repos/kiddin9/openwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date') || (REPO_TOKEN="${{ secrets.TOKEN_KIDDIN9 }}" && gitdate=$(curl -H "Authorization: token $REPO_TOKEN" -s "https://api.github.com/repos/kiddin9/openwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date'))
+              gitdate=$(curl -H "Authorization: token $REPO_TOKEN" -s "https://api.github.com/repos/kiddin9/kwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date') || (REPO_TOKEN="${{ secrets.TOKEN_KIDDIN9 }}" && gitdate=$(curl -H "Authorization: token $REPO_TOKEN" -s "https://api.github.com/repos/kiddin9/kwrt-packages/commits?path=$ipk&per_page=1" | jq -r '.[0].commit.committer.date'))
               if [[ "$gitdate" && "$gitdate" != null ]]; then
                 gitdate="$(date -d "$gitdate" +%s)"
                 now="$(date -d "$(date)" +%s)"
