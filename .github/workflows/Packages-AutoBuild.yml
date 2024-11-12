@@ -154,7 +154,7 @@ jobs:
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
         ln -sf /mnt/openwrt/bin openwrt/bin
         ln -sf /mnt/openwrt/dl openwrt/dl
-        [[ "$($(echo "${{github.event.action}}") | grep "a-")" ]] &&
+        [[ "$(echo "${{github.event.action}}" | grep "a-")" ]] &&
           ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         df -hT
     
