@@ -331,7 +331,7 @@ jobs:
         ARGS: "-avzr"
         SOURCE: "packages/"
         REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-        REMOTE_USER: root
+        REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
         REMOTE_PORT: ${{ secrets.SERVER_PORT }}
         TARGET: "/www/wwwroot/dl.openwrt.ai/releases/24.10/packages/${{matrix.target}}/kiddin9/"
 
