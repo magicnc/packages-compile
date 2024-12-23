@@ -36,6 +36,8 @@ done
 ./scripts/feeds install -a -p kiddin9 -f
 ./scripts/feeds install -a
 
+rm -rf package/feeds/kiddin9/luci-app-quickstart/root/usr/share/luci/menu.d/luci-app-quickstart.json
+
 sed -i 's/\(page\|e\)\?.acl_depends.*\?}//' `find package/feeds/kiddin9/luci-*/luasrc/controller/* -name "*.lua"`
 # sed -i 's/\/cgi-bin\/\(luci\|cgi-\)/\/\1/g' `find package/feeds/kiddin9/luci-*/ -name "*.lua" -or -name "*.htm*" -or -name "*.js"` &
 
