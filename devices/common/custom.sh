@@ -25,9 +25,6 @@ rm -Rf feeds/base/package/system/!(opkg|ubus|uci|ca-certificates)
 rm -Rf feeds/base/package/kernel/!(cryptodev-linux)
 #COMMENT
 
-git_clone_path openwrt-24.10 https://github.com/openwrt/luci modules/luci-base
-mv -f modules/luci-base package/feeds/kiddin9/
-
 status=$(curl -H "Authorization: token $REPO_TOKEN" -s "https://api.github.com/repos/kiddin9/kwrt-packages/actions/runs" | jq -r '.workflow_runs[0].status')
 while [[ "$status" == "in_progress" || "$status" == "queued" ]];do
 echo "wait 5s"
@@ -40,6 +37,9 @@ done
 ./scripts/feeds install -a
 
 rm -rf package/feeds/kiddin9/luci-app-quickstart/root/usr/share/luci/menu.d/luci-app-quickstart.json
+
+git_clone_path openwrt-24.10 https://github.com/openwrt/luci modules/luci-base
+mv -f modules/luci-base package/feeds/kiddin9/
 
 sed -i 's/\(page\|e\)\?.acl_depends.*\?}//' `find package/feeds/kiddin9/luci-*/luasrc/controller/* -name "*.lua"`
 # sed -i 's/\/cgi-bin\/\(luci\|cgi-\)/\/\1/g' `find package/feeds/kiddin9/luci-*/ -name "*.lua" -or -name "*.htm*" -or -name "*.js"` &
