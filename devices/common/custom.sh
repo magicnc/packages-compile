@@ -40,7 +40,7 @@ rm -rf package/feeds/kiddin9/luci-app-quickstart/root/usr/share/luci/menu.d/luci
 
 git_clone_path openwrt-24.10 https://github.com/openwrt/luci modules/luci-base
 mv -f modules/luci-base package/feeds/kiddin9/
-sed -i 's? \.\./\.\./? $(TOPDIR)/feeds/luci/?' package/feeds/kiddin9/luci-base
+sed -i 's? \.\./\.\./? $(TOPDIR)/feeds/luci/?' package/feeds/kiddin9/luci-base/Makefile
 
 sed -i 's/\(page\|e\)\?.acl_depends.*\?}//' `find package/feeds/kiddin9/luci-*/luasrc/controller/* -name "*.lua"`
 # sed -i 's/\/cgi-bin\/\(luci\|cgi-\)/\/\1/g' `find package/feeds/kiddin9/luci-*/ -name "*.lua" -or -name "*.htm*" -or -name "*.js"` &
