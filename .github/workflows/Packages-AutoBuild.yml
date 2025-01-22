@@ -15,6 +15,20 @@ on:
   #     - master
   # schedule:
   #   - cron: 0 1 */1 * *
+# on: 
+  # push: 
+  #   branches:
+  #     - master
+  schedule:
+    - cron: 30 15 * * *
+  watch:
+    types: started
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'Packages'
+        required: false
+        default: ''
 
 env:
   PPPOE_USERNAME: ${{ secrets.PPPOE_USERNAME }}
